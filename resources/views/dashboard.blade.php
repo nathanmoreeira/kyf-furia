@@ -20,7 +20,7 @@
     style="height: 7%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; background-color: #1a1a1a;">
     <!-- Logo à esquerda -->
     <a href="{{ route('home') }}">
-        <img src="/image/furia@logotyp.us.svg" alt="Logo FURIA" style="width: 30%;" />
+        <img src="/imagem/furia@logotyp.us.svg" alt="Logo FURIA" style="width: 30%;" />
     </a>
 
     <!-- Nome do usuário e botão de logout à direita -->

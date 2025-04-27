@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bem-vindo - FÚRIA</title>
+    <title>Bem-vindo - FURIA</title>
     @vite(['resources/css/app.css'])
     <style>
         body {
@@ -77,7 +77,7 @@
     <section class="hero">
         <div class="overlay"></div>
         <div class="hero-content">
-            <h1>Bem-vindo à FURIA Fans</h1>
+            <h1>Bem-vindo ao FURIA Fans</h1>
             <p>Conecte-se com os melhores momentos e produtos oficiais.</p>
             <div class="buttons">
                 <a href="https://furia.gg/store" target="_blank">Loja Oficial</a>

@@ -29,8 +29,14 @@ class FanController extends Controller
         return view('dashboard', compact('fans'));
     }
 
+    public function create()
+    {
+        return view('fan_register');
+    }
+
     public function store(Request $request)
     {
+        // var_dump($request); // Imprime os dados recebidos no controlador
         $validated = $request->validate([
             'name' => 'required|string',
             'cpf' => 'required|string|unique:fans',
@@ -40,7 +46,10 @@ class FanController extends Controller
             'birth_date' => 'required|date',
         ]);
 
-        return Fan::create($validated);
+        Fan::create($validated);
+
+        return redirect()->route('home')->with('success', 'Cadastro realizado com sucesso!');
+
     }
 
     public function show(Fan $fan)

@@ -1,61 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🎯 KYF FURIA – Know Your Fans
+KYF FURIA é um chatbot interativo desenvolvido para a comunidade da FURIA Esports. Ele permite que fãs façam perguntas e recebam respostas automatizadas, proporcionando uma experiência de engajamento personalizada.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+🚀 Tecnologias Utilizadas
+Laravel 10 – Framework PHP para o backend.
 
-## About Laravel
+Vite – Empacotador de módulos para assets modernos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Tailwind CSS – Framework utilitário para estilização rápida.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+JavaScript Vanilla – Para lógica do frontend.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+n8n – Plataforma de automação de workflows.
 
-## Learning Laravel
+📦 Instalação
+1. Clonar o repositório
+bash
+Copiar
+Editar
+git clone https://github.com/nathanmoreeira/kyf-furia.git
+cd kyf-furia
+2. Instalar dependências
+bash
+Copiar
+Editar
+composer install
+npm install
+3. Configurar o ambiente
+bash
+Copiar
+Editar
+cp .env.example .env
+php artisan key:generate
+Edite o arquivo .env com suas configurações de banco de dados e outras variáveis necessárias.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. Rodar as migrações
+bash
+Copiar
+Editar
+php artisan migrate
+5. Iniciar o servidor de desenvolvimento
+bash
+Copiar
+Editar
+php artisan serve
+npm run dev
+O aplicativo estará disponível em http://localhost:8000.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+💬 Como Usar
+O chatbot é exibido como um botão flutuante no canto inferior direito da tela. Ao clicar, ele se expande para mostrar a interface de conversa.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Usuário: Mensagens alinhadas à direita com fundo roxo escuro.
 
-## Laravel Sponsors
+FURIA Bot: Respostas alinhadas à esquerda com fundo claro.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+As mensagens são processadas por um webhook configurado no n8n, que utiliza a API do OpenAI para gerar respostas.
 
-### Premium Partners
+⚙️ Configuração do Webhook no n8n
+Crie um novo workflow no n8n com um nó HTTP Trigger.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+Configure o endpoint para receber requisições POST.
 
-## Contributing
+Adicione um nó HTTP Request para chamar a API do OpenAI com o histórico de mensagens.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Retorne a resposta do OpenAI como saída do webhook.
 
-## Code of Conduct
+Certifique-se de que o endpoint do webhook esteja acessível publicamente e atualize a URL no arquivo JavaScript do chatbot:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+javascript
+Copiar
+Editar
+const response = await fetch('https://seu-webhook-url.com/webhook/FURIA', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ history: conversationHistory }),
+});
+🎨 Personalização
+Estilo: Modifique o arquivo CSS para ajustar cores, fontes e layout conforme necessário.
 
-## Security Vulnerabilities
+Comportamento: Edite o arquivo JavaScript para alterar a lógica de exibição de mensagens ou integração com outras APIs.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+🛠️ Contribuição
+Fork o projeto.
 
-## License
+Crie uma nova branch: git checkout -b minha-feature.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Faça suas alterações e commit: git commit -m 'Minha nova feature'.
+
+Envie para o GitHub: git push origin minha-feature.
+
+Abra um Pull Request.
+
+📄 Licença
+Este projeto está licenciado sob a MIT License.
+
+Para mais informações, acesse o repositório oficial: kyf-furia.

@@ -1,96 +1,130 @@
-🎯 KYF FURIA – Know Your Fans
-KYF FURIA é um chatbot interativo desenvolvido para a comunidade da FURIA Esports. Ele permite que fãs façam perguntas e recebam respostas automatizadas, proporcionando uma experiência de engajamento personalizada.
+# 🎯 KYF FURIA – Know Your Fans
 
-🚀 Tecnologias Utilizadas
-Laravel 10 – Framework PHP para o backend.
+KYF FURIA é um chatbot interativo desenvolvido para a comunidade da FURIA Esports.  
+Ele permite que fãs façam perguntas e recebam respostas automatizadas, proporcionando uma experiência de engajamento personalizada.
 
-Vite – Empacotador de módulos para assets modernos.
+## 🚀 Tecnologias Utilizadas
 
-Tailwind CSS – Framework utilitário para estilização rápida.
+- **Laravel 10** – Framework PHP para o backend.
+- **Vite** – Empacotador de módulos para assets modernos.
+- **Tailwind CSS** – Framework utilitário para estilização rápida.
+- **JavaScript Vanilla** – Para lógica do frontend.
+- **n8n** – Plataforma de automação de workflows.
+- **Supabase** – Backend como serviço para persistência dos dados.
 
-JavaScript Vanilla – Para lógica do frontend.
+## 📦 Instalação
 
-n8n – Plataforma de automação de workflows.
+### 1. Clonar o repositório
 
-📦 Instalação
-1. Clonar o repositório
-bash
-Copiar
-Editar
+```
 git clone https://github.com/nathanmoreeira/kyf-furia.git
 cd kyf-furia
-2. Instalar dependências
-bash
-Copiar
-Editar
+```
+
+### 2. Instalar dependências
+
+```
 composer install
 npm install
-3. Configurar o ambiente
-bash
-Copiar
-Editar
+```
+
+### 3. Configurar o ambiente
+
+```
 cp .env.example .env
 php artisan key:generate
-Edite o arquivo .env com suas configurações de banco de dados e outras variáveis necessárias.
+```
 
-4. Rodar as migrações
-bash
-Copiar
-Editar
+Edite o arquivo `.env` com suas configurações de banco de dados, Supabase, etc.
+
+### 4. Rodar as migrações
+
+```
 php artisan migrate
-5. Iniciar o servidor de desenvolvimento
-bash
-Copiar
-Editar
+```
+
+### 5. Iniciar o servidor de desenvolvimento
+
+```
 php artisan serve
 npm run dev
-O aplicativo estará disponível em http://localhost:8000.
+```
 
-💬 Como Usar
-O chatbot é exibido como um botão flutuante no canto inferior direito da tela. Ao clicar, ele se expande para mostrar a interface de conversa.
+Acesse o projeto em `http://localhost:8000`.
 
-Usuário: Mensagens alinhadas à direita com fundo roxo escuro.
+## 💬 Como Usar
 
-FURIA Bot: Respostas alinhadas à esquerda com fundo claro.
+O chatbot aparece como um botão flutuante no canto inferior direito da tela.  
+Ao clicar, ele se expande para exibir uma interface de conversa com:
 
-As mensagens são processadas por um webhook configurado no n8n, que utiliza a API do OpenAI para gerar respostas.
+- **Mensagens do usuário**: alinhadas à direita, com fundo escuro.
+- **Mensagens do FURIA Bot**: alinhadas à esquerda, com fundo claro.
 
-⚙️ Configuração do Webhook no n8n
-Crie um novo workflow no n8n com um nó HTTP Trigger.
+As mensagens são enviadas via `fetch` para um **webhook público** configurado com n8n + OpenAI (ou outro serviço).
 
-Configure o endpoint para receber requisições POST.
+## ⚙️ Configuração do Webhook no n8n
 
-Adicione um nó HTTP Request para chamar a API do OpenAI com o histórico de mensagens.
+1. Crie um novo workflow no n8n com um nó HTTP Trigger.
+2. Configure-o para aceitar requisições `POST` no endpoint `/webhook/FURIA`.
+3. Adicione um nó HTTP Request (ou OpenAI) que receba o histórico da conversa (`history`) e gere uma resposta.
+4. Retorne a resposta como JSON para o frontend.
 
-Retorne a resposta do OpenAI como saída do webhook.
+### Exemplo de chamada do frontend:
 
-Certifique-se de que o endpoint do webhook esteja acessível publicamente e atualize a URL no arquivo JavaScript do chatbot:
-
-javascript
-Copiar
-Editar
+```js
 const response = await fetch('https://seu-webhook-url.com/webhook/FURIA', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ history: conversationHistory }),
 });
-🎨 Personalização
-Estilo: Modifique o arquivo CSS para ajustar cores, fontes e layout conforme necessário.
+```
 
-Comportamento: Edite o arquivo JavaScript para alterar a lógica de exibição de mensagens ou integração com outras APIs.
+## 🧠 Cadastro de Fãs
 
-🛠️ Contribuição
-Fork o projeto.
+O app inclui um formulário completo para cadastro de fãs da FURIA, com campos como:
 
-Crie uma nova branch: git checkout -b minha-feature.
+- Nome, E-mail, CPF, Data de Nascimento  
+- Endereço, Número, Cidade, Estado  
+- Instagram, Twitter  
+- Esporte Favorito e Jogador Favorito da FURIA
 
-Faça suas alterações e commit: git commit -m 'Minha nova feature'.
+As informações são armazenadas no Supabase.
 
-Envie para o GitHub: git push origin minha-feature.
+## 📁 Estrutura do Projeto
 
-Abra um Pull Request.
+```
+├── app/
+├── resources/
+│   ├── views/
+│   │   ├── chatbot.blade.php
+│   │   ├── fans/
+│   │       ├── create.blade.php
+│   │       ├── edit.blade.php
+│   │       └── index.blade.php
+├── public/
+│   └── chatbot.js / chatbot.css
+├── routes/
+│   └── web.php
+```
 
-📄 Licença
-Este projeto está licenciado sob a MIT License.
+## 🎨 Personalização
 
-Para mais informações, acesse o repositório oficial: kyf-furia.
+- **Estilo**: altere o CSS embutido ou use Tailwind.
+- **Comportamento**: edite o JavaScript do chatbot conforme necessário.
+- **Linguagem**: personalize mensagens e respostas.
+
+## 🛠️ Contribuindo
+
+1. Fork este repositório.
+2. Crie sua branch: `git checkout -b minha-feature`
+3. Faça suas alterações e commit: `git commit -m 'minha feature'`
+4. Push para sua branch: `git push origin minha-feature`
+5. Abra um Pull Request.
+
+## 📝 Licença
+
+Distribuído sob a Licença MIT. Veja `LICENSE` para mais informações.
+
+---
+
+Made with ❤️ by [Nathan Moreira](https://github.com/nathanmoreeira)

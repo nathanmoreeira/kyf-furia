@@ -44,6 +44,12 @@ class FanController extends Controller
             'favorite_sport' => 'nullable|string',
             'favorite_player' => 'nullable|string',
             'birth_date' => 'required|date',
+            'endereco' =>  'required|string',
+            'cidade' => 'required|string',
+            'estado' => 'required|string',
+            'numero' => 'required|string',
+            'instagram' => 'required|string',
+            'twitter' => 'required|string',
         ]);
 
         Fan::create($validated);
@@ -57,15 +63,27 @@ class FanController extends Controller
         return $fan;
     }
 
-    public function update(Request $request, Fan $fan)
-    {
-        $fan->update($request->all());
-        return $fan;
-    }
+    public function edit($id)
+{
+    $fan = Fan::findOrFail($id);
+    return view('fan_edit', compact('fan'));
+}
 
-    public function destroy(Fan $fan)
-    {
-        $fan->delete();
-        return response()->noContent();
-    }
+
+public function update(Request $request, $id)
+{
+    $fan = Fan::findOrFail($id);
+    $fan->update($request->all());
+
+    return redirect()->route('dashboard')->with('success', 'Fã atualizado com sucesso!');
+}
+
+public function destroy($id)
+{
+    $fan = Fan::findOrFail($id);
+    $fan->delete();
+
+    return redirect()->route('dashboard')->with('success', 'Fã deletado com sucesso!');
+}
+
 }

@@ -101,7 +101,7 @@
         </header>
     @endguest
     <div class="register-container">
-        <h1><strong>Cadastro de Fan</strong></h1>
+        <h1><strong> Editar Fan</strong></h1>
 
         @if ($errors->any())
             <div
@@ -115,7 +115,7 @@
         @endif
 
 
-        <form action="{{ route('fan.store') }}" method="POST">
+        <form action="{{ route('fan.update', $fan->id) }}" method="POST">
             @csrf
 
             <!-- Seção: Dados Pessoais -->
@@ -123,17 +123,17 @@
                 Pessoais</h2>
             <div class="form-group">
                 <label for="name">Nome Completo</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" required value="{{ $fan->name }}">
             </div>
 
             <div class="form-group">
                 <label for="birth_date">Data de Nascimento</label>
-                <input type="date" id="birth_date" name="birth_date" required>
+                <input type="date" id="birth_date" name="birth_date" required value="{{ $fan->birth_date }}">
             </div>
 
             <div class="form-group">
                 <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf" required>
+                <input type="text" id="cpf" name="cpf" required value="{{ $fan->cpf }}">
             </div>
 
             <!-- Seção: Contato -->
@@ -141,17 +141,17 @@
                 Contato</h2>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" required value="{{ $fan->email }}">
             </div>
 
             <div class="form-group">
                 <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" name="instagram">
+                <input type="text" id="instagram" name="instagram" value="{{ $fan->instagram }}">
             </div>
 
             <div class="form-group">
                 <label for="twitter">Twitter</label>
-                <input type="text" id="twitter" name="twitter">
+                <input type="text" id="twitter" name="twitter" value="{{ $fan->twitter }}">
             </div>
 
             <!-- Seção: Endereço -->
@@ -159,22 +159,22 @@
                 Endereço</h2>
             <div class="form-group">
                 <label for="endereco">Endereço</label>
-                <input type="text" id="endereco" name="endereco" required>
+                <input type="text" id="endereco" name="endereco" required value="{{ $fan->endereco }}">
             </div>
 
             <div class="form-group">
                 <label for="numero">Número</label>
-                <input type="text" id="numero" name="numero" required>
+                <input type="text" id="numero" name="numero" required value="{{ $fan->numero }}">
             </div>
 
             <div class="form-group">
                 <label for="cidade">Cidade</label>
-                <input type="text" id="cidade" name="cidade" required>
+                <input type="text" id="cidade" name="cidade" required value="{{ $fan->cidade }}">
             </div>
 
             <div class="form-group">
                 <label for="estado">Estado</label>
-                <input type="text" id="estado" name="estado" required>
+                <input type="text" id="estado" name="estado" required value="{{ $fan->estado }}">
             </div>
 
             <!-- Seção: Preferências -->
@@ -182,15 +182,16 @@
                 Preferências</h2>
             <div class="form-group">
                 <label for="favorite_sport">E-Sport Favorito</label>
-                <input type="text" id="favorite_sport" name="favorite_sport">
+                <input type="text" id="favorite_sport" name="favorite_sport" value="{{ $fan->favorite_sport }}">
             </div>
 
             <div class="form-group">
                 <label for="favorite_player">Jogador da FURIA Favorito</label>
-                <input type="text" id="favorite_player" name="favorite_player">
+                <input type="text" id="favorite_player" name="favorite_player"
+                    value="{{ $fan->favorite_player }}">
             </div>
 
-            <button type="submit" class="submit-btn">Cadastrar</button>
+            <button type="submit" class="submit-btn">Salvar</button>
         </form>
 
 

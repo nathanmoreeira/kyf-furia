@@ -16,9 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('cpf')->unique();
             $table->string('email')->unique();
+            $table->string('endereco');
+            $table->string('numero');
+            $table->string('cidade');
+            $table->string('estado');
             $table->string('favorite_sport')->nullable();
             $table->string('favorite_player')->nullable();
             $table->date('birth_date');
+            $table->string('instagram');
+            $table->string('twitter');
             $table->timestamps();
         });
     }

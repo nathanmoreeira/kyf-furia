@@ -1,18 +1,5 @@
-<!-- <header>
-  <a href="{{ route('home') }}">
-    <img src="{{ asset('image/furia@logotyp.us.svg') }}" alt="Logo Furia" style="width: 7%;">
-  </a>
-  <div style="display: flex; align-items: center;">
-    <span class="user-info">{{ Auth::user()->name }}</span>
-
-    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-      @csrf
-      <button type="submit" class="logout-btn">Sair</button>
-    </form>
-  </div>
-</header> -->
-
 <head>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -36,6 +23,22 @@
         </form>
     </div>
 </header>
+
+<!-- @if (session('success'))
+<div
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 3000)"
+        x-show="show"
+        x-transition
+        class="fixed top-4 right-4 z-50 px-4 py-2 text-sm text-white bg-green-600 rounded shadow"
+        role="alert"
+    >
+        {{ session('success') }}
+    </div>
+@endif -->
+
+
+
 
 
 <div class="container">
@@ -101,15 +104,18 @@
                             <td>{{ $fan->favorite_player }}</td>
                             <td>{{ $fan->birth_date }}</td>
                             <td style="display: flex; gap: 10px;">
-                                <a href="" class="btn-primary" style="color: #8a2be2; font-size: 18px;">
+                                <a href="{{ route('fan.edit', $fan->id) }}" class="btn-primary"
+                                    style="color: #8a2be2; font-size: 18px;">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="" method="POST" style="display: inline;">
+                                <form action="{{ route('fan.destroy', $fan->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-danger"
-                                        style="background: none; border: none; cursor: pointer; color: crimson; font-size: 18px;">
-                                        <i class="fas fa-trash"></i>
+                                    <button type="submit"
+                                        onclick="return confirm('Tem certeza que deseja excluir este fã?')"
+                                        title="Excluir" style="background: none; border: none; cursor: pointer;">
+                                        <i class="fas fa-trash-alt" style="color: red;"></i>
                                     </button>
                                 </form>
                             </td>

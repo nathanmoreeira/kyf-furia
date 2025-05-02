@@ -1,0 +1,8 @@
+POST https://d024-2804-7f0-3d1-9b32-a934-ccc6-677d-6317.ngrok-free.app/webhook/FURIA
+Content-Type: application/json
+Date: Fri, 01 May 2025 22:19:46 GMT
+
+
+{
+    "question": "Como você se chama?"
+}

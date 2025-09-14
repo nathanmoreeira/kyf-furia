@@ -36,19 +36,17 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      # --- CORREÇÃO AQUI ---
+      # --- CORREÇÃO FINAL AQUI ---
       - name: Install Node.js dependencies
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Install NPM dependencies
-        run: npm install
-        working-directory: frontend/ # Caminho corrigido
+        run: cd frontend && npm install
 
       - name: Build assets with Vite
-        run: npm run build
-        working-directory: frontend/ # Caminho corrigido
+        run: cd frontend && npm run build
       # --- FIM DA CORREÇÃO ---
 
       - name: Execute tests

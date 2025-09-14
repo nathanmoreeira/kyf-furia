@@ -44,12 +44,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      # --- A CORREÇÃO FINAL AQUI ---
-      - name: Clean install Node.js dependencies
+          
+      # --- CORREÇÃO FINAL AQUI ---
+      - name: Clean NPM cache and install dependencies
         run: |
-          rm -rf node_modules
-          npm install
+          npm cache clean --force
+          npm ci
       # --- FIM DA CORREÇÃO ---
 
       - name: Build assets with Vite

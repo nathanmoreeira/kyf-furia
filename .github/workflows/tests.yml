@@ -6,8 +6,6 @@ on:
       - master
       - '*.x'
   pull_request:
-  schedule:
-    - cron: '0 0 * * *'
 
 permissions:
   contents: read
@@ -19,7 +17,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2, 8.3]
+        php: [8.2, 8.3] # Mantendo as versões estáveis
 
     name: PHP ${{ matrix.php }}
 
@@ -35,7 +33,7 @@ jobs:
           coverage: none
 
       - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress --verbose
 
       - name: Copy environment file
         run: cp .env.example .env
@@ -43,5 +41,28 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
+      # --- NOVOS PASSOS PARA RESOLVER O ERRO ---
+      - name: Install Node.js dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets with Vite
+        run: npm run build
+      # --- FIM DOS NOVOS PASSOS ---
+
       - name: Execute tests
         run: php artisan test
+
+      - name: Post Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          path: ./.github/workflows/actions
+
+      - name: Complete job
+        run: echo "Job completed successfully"

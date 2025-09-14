@@ -269,7 +269,7 @@
             });
 
             const response = await fetch(
-                'https://d024-2804-7f0-3d1-9b32-a934-ccc6-677d-6317.ngrok-free.app/webhook/FURIA', {
+                'https://0d66-2804-7f0-3d1-9b32-6424-f409-a346-651d.ngrok-free.app/webhook/FURIA', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

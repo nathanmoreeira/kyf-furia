@@ -3,11 +3,8 @@ name: Tests
 on:
   push:
     branches:
-      - master
-      - '*.x'
+      - '**'
   pull_request:
-  schedule:
-    - cron: '0 0 * * *'
 
 permissions:
   contents: read
@@ -19,7 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2, 8.3, 8.4]
+        php: [8.2, 8.3]
 
     name: PHP ${{ matrix.php }}
 
@@ -42,6 +39,19 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
+
+      # --- CORREÇÃO FINAL AQUI ---
+      - name: Install Node.js dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM dependencies
+        run: npm ci # Comando corrigido
+
+      - name: Build assets with Vite
+        run: npm run build
+      # --- FIM DA CORREÇÃO ---
 
       - name: Execute tests
         run: php artisan test

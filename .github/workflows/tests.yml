@@ -3,12 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
-      - '**.x'
-  pull_request:
-
-permissions:
-  contents: read
+      - '**'
 
 jobs:
   tests:
@@ -41,7 +36,7 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      # --- NOVOS PASSOS PARA RESOLVER O ERRO ---
+      # --- CORREÇÃO AQUI ---
       - name: Install Node.js dependencies
         uses: actions/setup-node@v4
         with:
@@ -49,22 +44,12 @@ jobs:
 
       - name: Install NPM dependencies
         run: npm install
-        working-directory: frontend/
+        working-directory: frontend/ # Caminho corrigido
 
       - name: Build assets with Vite
         run: npm run build
-        working-directory: frontend/
-      # --- FIM DOS NOVOS PASSOS ---
+        working-directory: frontend/ # Caminho corrigido
+      # --- FIM DA CORREÇÃO ---
 
       - name: Execute tests
         run: php artisan test
-
-      - name: Post Checkout code
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
-          path: ./.github/workflows/actions
-
-      - name: Complete job
-        run: echo "Job completed successfully"

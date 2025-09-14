@@ -40,18 +40,20 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      # --- CORREÇÃO FINAL AQUI ---
       - name: Install Node.js dependencies
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install NPM dependencies
-        run: npm ci # Comando corrigido
+      # --- CORREÇÃO FINAL AQUI ---
+      - name: Clean install Node.js dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+      # --- FIM DA CORREÇÃO ---
 
       - name: Build assets with Vite
         run: npm run build
-      # --- FIM DA CORREÇÃO ---
 
       - name: Execute tests
         run: php artisan test

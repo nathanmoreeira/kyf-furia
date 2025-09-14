@@ -3,7 +3,12 @@ name: Tests
 on:
   push:
     branches:
-      - '**'
+      - master
+      - '**.x'
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   tests:
@@ -36,17 +41,17 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      # --- CORREÇÃO FINAL AQUI ---
+      # --- A CORREÇÃO FINAL AQUI ---
       - name: Install Node.js dependencies
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Install NPM dependencies
-        run: cd frontend && npm install
+        run: npm install
 
       - name: Build assets with Vite
-        run: cd frontend && npm run build
+        run: npm run build
       # --- FIM DA CORREÇÃO ---
 
       - name: Execute tests

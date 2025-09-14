@@ -45,11 +45,11 @@ jobs:
         with:
           node-version: '20'
 
-      # --- A CORREÇÃO DEFINITIVA AQUI ---
+      # --- CORREÇÃO FINAL AQUI ---
       - name: Clean install Node.js dependencies
         run: |
           rm -rf node_modules package-lock.json
-          npm ci
+          npm install
       # --- FIM DA CORREÇÃO ---
 
       - name: Build assets with Vite

@@ -1,130 +1,85 @@
-# 🎯 KYF FURIA – Know Your Fans
+# KYF FURIA - Know Your Fans (Estudo de Caso Técnico) 🐾
 
-KYF FURIA é um chatbot interativo desenvolvido para a comunidade da FURIA Esports.  
-Ele permite que fãs façam perguntas e recebam respostas automatizadas, proporcionando uma experiência de engajamento personalizada.
-
-## 🚀 Tecnologias Utilizadas
-
-- **Laravel 10** – Framework PHP para o backend.
-- **Vite** – Empacotador de módulos para assets modernos.
-- **Tailwind CSS** – Framework utilitário para estilização rápida.
-- **JavaScript Vanilla** – Para lógica do frontend.
-- **n8n** – Plataforma de automação de workflows.
-- **Supabase** – Backend como serviço para persistência dos dados.
-
-## 📦 Instalação
-
-### 1. Clonar o repositório
-
-```
-git clone https://github.com/nathanmoreeira/kyf-furia.git
-cd kyf-furia
-```
-
-### 2. Instalar dependências
-
-```
-composer install
-npm install
-```
-
-### 3. Configurar o ambiente
-
-```
-cp .env.example .env
-php artisan key:generate
-```
-
-Edite o arquivo `.env` com suas configurações de banco de dados, Supabase, etc.
-
-### 4. Rodar as migrações
-
-```
-php artisan migrate
-```
-
-### 5. Iniciar o servidor de desenvolvimento
-
-```
-php artisan serve
-npm run dev
-```
-
-Acesse o projeto em `http://localhost:8000`.
-
-## 💬 Como Usar
-
-O chatbot aparece como um botão flutuante no canto inferior direito da tela.  
-Ao clicar, ele se expande para exibir uma interface de conversa com:
-
-- **Mensagens do usuário**: alinhadas à direita, com fundo escuro.
-- **Mensagens do FURIA Bot**: alinhadas à esquerda, com fundo claro.
-
-As mensagens são enviadas via `fetch` para um **webhook público** configurado com n8n + OpenAI (ou outro serviço).
-
-## ⚙️ Configuração do Webhook no n8n
-
-1. Crie um novo workflow no n8n com um nó HTTP Trigger.
-2. Configure-o para aceitar requisições `POST` no endpoint `/webhook/FURIA`.
-3. Adicione um nó HTTP Request (ou OpenAI) que receba o histórico da conversa (`history`) e gere uma resposta.
-4. Retorne a resposta como JSON para o frontend.
-
-### Exemplo de chamada do frontend:
-
-```js
-const response = await fetch('https://seu-webhook-url.com/webhook/FURIA', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ history: conversationHistory }),
-});
-```
-
-## 🧠 Cadastro de Fãs
-
-O app inclui um formulário completo para cadastro de fãs da FURIA, com campos como:
-
-- Nome, E-mail, CPF, Data de Nascimento  
-- Endereço, Número, Cidade, Estado  
-- Instagram, Twitter  
-- Esporte Favorito e Jogador Favorito da FURIA
-
-As informações são armazenadas no Supabase.
-
-## 📁 Estrutura do Projeto
-
-```
-├── app/
-├── resources/
-│   ├── views/
-│   │   ├── chatbot.blade.php
-│   │   ├── fans/
-│   │       ├── create.blade.php
-│   │       ├── edit.blade.php
-│   │       └── index.blade.php
-├── public/
-│   └── chatbot.js / chatbot.css
-├── routes/
-│   └── web.php
-```
-
-## 🎨 Personalização
-
-- **Estilo**: altere o CSS embutido ou use Tailwind.
-- **Comportamento**: edite o JavaScript do chatbot conforme necessário.
-- **Linguagem**: personalize mensagens e respostas.
-
-## 🛠️ Contribuindo
-
-1. Fork este repositório.
-2. Crie sua branch: `git checkout -b minha-feature`
-3. Faça suas alterações e commit: `git commit -m 'minha feature'`
-4. Push para sua branch: `git push origin minha-feature`
-5. Abra um Pull Request.
-
-## 📝 Licença
-
-Distribuído sob a Licença MIT. Veja `LICENSE` para mais informações.
+![Status](https://img.shields.io/badge/STATUS-ARQUIVADO-lightgrey?style=for-the-badge)
+![Linguagem](https://img.shields.io/badge/LINGUAGEM-PHP-blue?style=for-the-badge&logo=php)
+![Framework](https://img.shields.io/badge/FRAMEWORK-LARAVEL-red?style=for-the-badge&logo=laravel)
 
 ---
 
-Made with ❤️ by [Nathan Moreira](https://github.com/nathanmoreeira)
+## 📜 Visão Geral do Projeto
+
+Este repositório serve como um **estudo de caso técnico** para o **KYF FURIA (Know Your Fans)**, um projeto que explorei para criar uma plataforma de engajamento para a comunidade da FURIA Esports. A solução completa incluía um chatbot interativo para responder perguntas e um sistema de cadastro de fãs.
+
+O objetivo principal foi arquitetar e construir uma aplicação web robusta, demonstrando a integração de um backend em **Laravel (PHP)** com serviços modernos de BaaS (*Backend as a Service*) como **Supabase** para persistência de dados e **n8n** para automação de workflows e respostas do chatbot.
+
+*Nota: O projeto encontra-se arquivado e as integrações com serviços externos (Supabase, n8n) estão desativadas.*
+
+---
+
+## ✨ Funcionalidades Principais
+
+A aplicação foi projetada com duas funcionalidades centrais para engajar a comunidade:
+
+1.  **Cadastro de Fãs:** Um formulário completo para que os fãs pudessem se registrar, criando uma base de dados da comunidade.
+2.  **Chatbot Interativo:** Uma interface de chat para que os usuários pudessem interagir e receber informações automatizadas.
+
+---
+
+## 🖼️ Galeria de Imagens
+
+A interface da aplicação foi projetada para ser limpa e intuitiva, focando nas duas funcionalidades principais.
+
+<p align="center">
+  <img src="./img/tela_principal.png" alt="Tela inicial com o chatbot" width="700px">
+  <br>
+  <em>Tela principal da aplicação, exibindo a interface do chatbot flutuante.</em>
+</p>
+<br>
+<p align="center">
+  <img src="./img/tela_cadastro.png" alt="Formulário de cadastro de fã" width="400px">
+  <br>
+  <em>Tela com o formulário de cadastro de fãs, com campos para informações pessoais e de contato.</em>
+</p>
+
+---
+
+## 🛠️ Stack de Tecnologias
+
+- **Backend:** Laravel (PHP)
+- **Frontend:** Blade, Tailwind CSS, JavaScript Vanilla
+- **Banco de Dados:** Supabase (PostgreSQL)
+- **Automação / IA:** n8n para orquestração de workflows e respostas do chatbot.
+- **Ferramentas:** Git, GitHub, Composer, NPM/Vite.
+
+---
+
+## 🚀 Como Executar Localmente (Frontend)**
+
+As instruções abaixo permitem executar a interface de frontend do projeto.
+
+*Nota: A conexão com o backend (Supabase, n8n) requer configuração de credenciais em um arquivo `.env`.*
+
+```bash
+# 1. Clone o repositório
+git clone [https://github.com/nathanmoreeira/kyf-furia.git](https://github.com/nathanmoreeira/kyf-furia.git)
+
+# 2. Navegue até a pasta do projeto
+cd kyf-furia
+
+# 3. Instale as dependências do PHP (Composer) e do Node (NPM)
+composer install
+npm install
+
+# 4. Crie o arquivo de ambiente a partir do exemplo
+cp .env.example .env
+
+# 5. Gere a chave da aplicação Laravel
+php artisan key:generate
+
+# 6. Compile os assets de frontend
+npm run dev
+
+# 7. Inicie o servidor de desenvolvimento do Laravel
+php artisan serve
+```
+Acesse o projeto em http://localhost:8000.
